@@ -2,7 +2,16 @@
  * app.js - Vue 3 Application for VB→PHP Course
  */
 
+console.log('[VB→PHP Course] Starting app...');
+
 const { createApp, ref, computed, onMounted } = Vue;
+
+if (typeof Vue === 'undefined') {
+  console.error('[VB→PHP Course] Vue not loaded!');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('app').innerHTML = '<div style="padding:2rem;color:#f85149;">Error: Vue no cargó correctamente. Por favor recarga la pagina (Ctrl+Shift+R).</div>';
+  });
+}
 
 // Module structure
 const MODULES = [
@@ -301,7 +310,13 @@ const app = createApp({
 });
 
 // Mount app
-app.mount('#app');
+try {
+  app.mount('#app');
+  console.log('[VB→PHP Course] Vue app mounted successfully');
+} catch (err) {
+  console.error('[VB→PHP Course] Error mounting Vue app:', err);
+  document.getElementById('app').innerHTML = '<div style="padding:2rem;color:#f85149;">Error al iniciar la aplicacion. Por favor recarga la pagina.</div>';
+}
 
 // Initial icon setup
 document.addEventListener('DOMContentLoaded', () => {

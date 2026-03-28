@@ -2,6 +2,8 @@
  * Store.js - LocalStorage management for auth and progress
  */
 
+console.log('[VB→PHP Course] Store loading...');
+
 const CourseStore = {
   // Keys
   AUTH_KEY: 'vbphp_auth',
