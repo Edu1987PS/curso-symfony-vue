@@ -1368,74 +1368,29 @@ code {
 }
 
 /* ================================================
-   Prism.js Overrides
+   Code Highlighting (highlight.js)
    ================================================ */
-pre[class*="language-"],
-code[class*="language-"] {
+pre {
   background: var(--bg-code) !important;
   font-family: var(--font-mono) !important;
   font-size: 0.9rem !important;
   line-height: 1.6 !important;
-}
-
-pre.line-numbers {
   padding: 1rem !important;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
 }
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #6e7681 !important;
+pre code {
+  background: transparent !important;
+  font-family: var(--font-mono) !important;
+  font-size: inherit !important;
+  padding: 0 !important;
 }
 
-.token.punctuation {
-  color: #8b949e !important;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number,
-.token.constant,
-.token.symbol,
-.token.deleted {
-  color: #79c0ff !important;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-  color: #a5d6ff !important;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #d2a8ff !important;
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #ff7b72 !important;
-}
-
-.token.function,
-.token.class-name {
-  color: #d2a8ff !important;
-}
-
-.token.regex,
-.token.important,
-.token.variable {
-  color: #ffa657 !important;
-}
+/* ================================================
+   Note: Using highlight.js with github-dark theme
+   (Prism token colors removed)
+   ================================================ */
 
 /* ================================================
    Responsive

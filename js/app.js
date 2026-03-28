@@ -162,9 +162,14 @@ const app = createApp({
     }
 
     function highlightCode(code, lang) {
-      if (typeof Prism !== 'undefined' && Prism.languages[lang]) {
-        return Prism.highlight(code, Prism.languages[lang], lang);
+      try {
+        if (typeof hljs !== 'undefined' && hljs.getLanguage(lang)) {
+          return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+        }
+      } catch (e) {
+        console.warn('[VB→PHP Course] Highlight error:', e);
       }
+      // Fallback: escape HTML
       return code
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
