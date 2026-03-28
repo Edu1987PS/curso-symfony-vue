@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VB→PHP: Curso Symfony + Vue.js</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  
+  <!-- Vue 3 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <a href="#/" class="logo">
+          <span class="logo-vb">VB</span>
+          <span class="logo-arrow">→</span>
+          <span class="logo-php">PHP</span>
+        </a>
+        
+        <nav class="nav" v-if="isLoggedIn">
+          <a href="#/dashboard" class="nav-link" :class="{ active: currentRoute === 'dashboard' }">
+            <i data-lucide="layout-dashboard"></i>
+            Dashboard
+          </a>
+          <a href="#/lessons" class="nav-link" :class="{ active: currentRoute === 'lessons' }">
+            <i data-lucide="book-open"></i>
+            Lecciones
+          </a>
+        </nav>
+        
+        <div class="header-actions">
+          <template v-if="isLoggedIn">
+            <span class="username">
+              <i data-lucide="user"></i>
+              {{ store.getUser() }}
+            </span>
+            <button @click="logout" class="btn btn-sm btn-ghost">
+              <i data-lucide="log-out"></i>
+              Salir
+            </button>
+          </template>
+          <template v-else>
+            <a href="#/login" class="btn btn-sm btn-primary">
+              <i data-lucide="log-in"></i>
+              Iniciar sesión
+            </a>
+          </template>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Login View -->
+      <div v-if="currentRoute === 'login'" class="view view-login">
+        <div class="login-card">
+          <div class="login-header">
+            <i data-lucide="graduation-cap"></i>
+            <h1>Acceso al Curso</h1>
+            <p>Introduce tus credenciales para continuar</p>
+          </div>
+          
+          <form @submit.prevent="login" class="login-form">
+            <div class="form-group">
+              <label for="username">Usuario</label>
+              <div class="input-wrapper">
+                <i data-lucide="user"></i>
+                <input 
+                  type="text" 
+                  id="username" 
+                  v-model="loginForm.username"
+                  placeholder="Tu nombre de usuario"
+                  required
+                >
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <div class="input-wrapper">
+                <i data-lucide="lock"></i>
+                <input 
+                  type="password" 
+                  id="password" 
+                  v-model="loginForm.password"
+                  placeholder="••••••••"
+                  required
+                >
+              </div>
+            </div>
+            
+            <div v-if="loginError" class="error-message">
+              <i data-lucide="alert-circle"></i>
+              {{ loginError }}
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+              <i data-lucide="log-in"></i>
+              Entrar
+            </button>
+          </form>
+          
+          <div class="login-footer">
+            <p>Usa: <code>edu</code> / <code>curso2026</code></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard View -->
+      <div v-if="currentRoute === 'dashboard' && isLoggedIn" class="view view-dashboard">
+        <div class="dashboard-header">
+          <div class="welcome-section">
+            <h1>¡Bienvenido, {{ store.getUser() }}!</h1>
+            <p>Tu progreso de aprendizaje</p>
+          </div>
+          
+          <div class="stats-cards">
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-blue">
+                <i data-lucide="book-open"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value">{{ completedCount }}/{{ totalLessons }}</span>
+                <span class="stat-label">Lecciones completadas</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-green">
+                <i data-lucide="trophy"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value">{{ globalProgress }}%</span>
+                <span class="stat-label">Progreso total</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon stat-icon-purple">
+                <i data-lucide="flame"></i>
+              </div>
+              <div class="stat-info">
+                <span class="stat-value">{{ store.getStreak() }}</span>
+                <span class="stat-label">Días seguidos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="progress-section">
+          <h2>Tu progreso</h2>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress-fill" :style="{ width: globalProgress + '%' }"></div>
+            </div>
+            <span class="progress-text">{{ globalProgress }}%</span>
+          </div>
+        </div>
+        
+        <div class="lessons-grid-section">
+          <div class="section-header">
+            <h2>Lecciones</h2>
+            <div class="filter-tabs">
+              <button 
+                @click="lessonFilter = 'all'"
+                :class="{ active: lessonFilter === 'all' }"
+                class="filter-tab"
+              >Todas</button>
+              <button 
+                @click="lessonFilter = 'completed'"
+                :class="{ active: lessonFilter === 'completed' }"
+                class="filter-tab"
+              >Completadas</button>
+              <button 
+                @click="lessonFilter = 'pending'"
+                :class="{ active: lessonFilter === 'pending' }"
+                class="filter-tab"
+              >Pendientes</button>
+            </div>
+          </div>
+          
+          <div class="lessons-grid">
+            <a 
+              v-for="lesson in filteredLessons" 
+              :key="lesson.id"
+              :href="'#/lesson/' + lesson.id"
+              class="lesson-card"
+              :class="{ 
+                completed: isLessonCompleted(lesson.id),
+                current: lesson.id === currentLessonId
+              }"
+            >
+              <div class="lesson-number">{{ lesson.id }}</div>
+              <div class="lesson-info">
+                <span class="lesson-category">{{ getCategoryLabel(lesson.category) }}</span>
+                <h3 class="lesson-title">{{ lesson.title }}</h3>
+                <span class="lesson-time">
+                  <i data-lucide="clock"></i>
+                  {{ lesson.estimatedTime }}
+                </span>
+              </div>
+              <div class="lesson-status">
+                <i v-if="isLessonCompleted(lesson.id)" data-lucide="check-circle" class="status-complete"></i>
+                <i v-else data-lucide="circle" class="status-pending"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lessons List View -->
+      <div v-if="currentRoute === 'lessons' && isLoggedIn" class="view view-lessons">
+        <div class="lessons-header">
+          <h1>Todas las Lecciones</h1>
+          <p>Selecciona una lección para continuar aprendiendo</p>
+        </div>
+        
+        <div v-for="module in modules" :key="module.id" class="module-section">
+          <div class="module-header">
+            <span class="module-number">Módulo {{ module.id }}</span>
+            <h2>{{ module.title }}</h2>
+          </div>
+          
+          <div class="lessons-grid">
+            <a 
+              v-for="lesson in module.lessons"
+              :key="lesson.id"
+              :href="'#/lesson/' + lesson.id"
+              class="lesson-card"
+              :class="{ completed: isLessonCompleted(lesson.id) }"
+            >
+              <div class="lesson-number">{{ lesson.id }}</div>
+              <div class="lesson-info">
+                <h3 class="lesson-title">{{ lesson.title }}</h3>
+                <span class="lesson-time">
+                  <i data-lucide="clock"></i>
+                  {{ lesson.estimatedTime }}
+                </span>
+              </div>
+              <div class="lesson-status">
+                <i v-if="isLessonCompleted(lesson.id)" data-lucide="check-circle" class="status-complete"></i>
+                <i v-else data-lucide="circle" class="status-pending"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lesson View -->
+      <div v-if="currentRoute === 'lesson' && isLoggedIn" class="view view-lesson">
+        <div class="lesson-nav">
+          <a 
+            v-if="prevLessonId"
+            :href="'#/lesson/' + prevLessonId"
+            class="nav-btn nav-prev"
+          >
+            <i data-lucide="chevron-left"></i>
+            Anterior
+          </a>
+          <span v-else class="nav-btn nav-disabled">
+            <i data-lucide="chevron-left"></i>
+            Anterior
+          </span>
+          
+          <span class="lesson-counter">Lección {{ currentLessonId }} de {{ totalLessons }}</span>
+          
+          <a 
+            v-if="nextLessonId"
+            :href="'#/lesson/' + nextLessonId"
+            class="nav-btn nav-next"
+          >
+            Siguiente
+            <i data-lucide="chevron-right"></i>
+          </a>
+          <span v-else class="nav-btn nav-disabled">
+            Siguiente
+            <i data-lucide="chevron-right"></i>
+          </span>
+        </div>
+        
+        <div class="lesson-content" v-if="currentLesson">
+          <div class="lesson-header">
+            <span class="lesson-category-badge">{{ getCategoryLabel(currentLesson.category) }}</span>
+            <h1>{{ currentLesson.title }}</h1>
+            <div class="lesson-meta">
+              <span>
+                <i data-lucide="clock"></i>
+                {{ currentLesson.estimatedTime }}
+              </span>
+              <span v-if="isLessonCompleted(currentLesson.id)" class="completed-badge">
+                <i data-lucide="check-circle"></i>
+                Completada
+              </span>
+            </div>
+          </div>
+          
+          <div class="lesson-body" v-html="currentLesson.content"></div>
+          
+          <!-- Code Examples -->
+          <div v-if="currentLesson.codeExamples && currentLesson.codeExamples.length" class="code-examples">
+            <h2>
+              <i data-lucide="code"></i>
+              Ejemplos de código
+            </h2>
+            
+            <div v-for="(example, idx) in currentLesson.codeExamples" :key="idx" class="code-example">
+              <div class="code-header" :class="'lang-' + example.lang">
+                <span class="code-lang">{{ example.label }}</span>
+                <button @click="copyCode(example.code)" class="copy-btn" title="Copiar código">
+                  <i data-lucide="copy"></i>
+                </button>
+              </div>
+              <pre class="line-numbers"><code :class="'language-' + example.lang" v-html="highlightCode(example.code, example.lang)"></code></pre>
+            </div>
+          </div>
+          
+          <!-- Comparison Block -->
+          <div v-if="currentLesson.comparison" class="comparison-block">
+            <h2>
+              <i data-lucide="columns"></i>
+              Comparativa VB.NET vs PHP
+            </h2>
+            <div class="comparison-grid">
+              <div class="comparison-col comparison-vb">
+                <div class="comparison-header">
+                  <span class="lang-indicator lang-vb">VB.NET</span>
+                </div>
+                <pre class="line-numbers"><code :class="'language-vbnet'" v-html="highlightCode(currentLesson.comparison.vb, 'vbnet')"></code></pre>
+              </div>
+              <div class="comparison-col comparison-php">
+                <div class="comparison-header">
+                  <span class="lang-indicator lang-php">PHP</span>
+                </div>
+                <pre class="line-numbers"><code :class="'language-php'" v-html="highlightCode(currentLesson.comparison.php, 'php')"></code></pre>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Test Section -->
+          <div v-if="currentLesson.test && currentLesson.test.length" class="test-section">
+            <h2>
+              <i data-lucide="clipboard-check"></i>
+              Test de evaluación
+            </h2>
+            <p class="test-intro">Responde las siguientes preguntas para completar la lección. Necesitas un 70% para aprobar.</p>
+            
+            <form @submit.prevent="submitTest" class="test-form">
+              <div 
+                v-for="(question, qIdx) in currentLesson.test" 
+                :key="qIdx"
+                class="test-question"
+                :class="{
+                  answered: testAnswers[qIdx] !== undefined,
+                  correct: testSubmitted && question.correct === testAnswers[qIdx],
+                  incorrect: testSubmitted && question.correct !== testAnswers[qIdx]
+                }"
+              >
+                <div class="question-text">
+                  <span class="question-number">{{ qIdx + 1 }}.</span>
+                  {{ question.question }}
+                </div>
+                
+                <div class="question-options">
+                  <label 
+                    v-for="(option, oIdx) in question.options" 
+                    :key="oIdx"
+                    class="option-label"
+                    :class="{
+                      selected: testAnswers[qIdx] === oIdx,
+                      correct: testSubmitted && oIdx === question.correct,
+                      incorrect: testSubmitted && testAnswers[qIdx] === oIdx && oIdx !== question.correct,
+                      disabled: testSubmitted
+                    }"
+                  >
+                    <input 
+                      type="radio" 
+                      :name="'q' + qIdx"
+                      :value="oIdx"
+                      v-model="testAnswers[qIdx]"
+                      :disabled="testSubmitted"
+                    >
+                    <span class="option-letter">{{ ['A', 'B', 'C', 'D'][oIdx] }}</span>
+                    <span class="option-text">{{ option }}</span>
+                  </label>
+                </div>
+                
+                <div v-if="testSubmitted && question.correct === testAnswers[qIdx]" class="question-feedback correct">
+                  <i data-lucide="check-circle"></i>
+                  ¡Correcto! {{ question.explanation }}
+                </div>
+                <div v-if="testSubmitted && question.correct !== testAnswers[qIdx]" class="question-feedback incorrect">
+                  <i data-lucide="x-circle"></i>
+                  Incorrecto. {{ question.explanation }}
+                </div>
+              </div>
+              
+              <div class="test-actions">
+                <div v-if="testScore !== null" class="test-score" :class="{ passed: testPassed }">
+                  <i :data-lucide="testPassed ? 'trophy' : 'refresh-cw'"></i>
+                  <span v-if="testPassed">¡Aprobado! Puntuación: {{ testScore }}%</span>
+                  <span v-else>No aprobado. Puntuación: {{ testScore }}% (necesitas 70%)</span>
+                </div>
+                
+                <button 
+                  v-if="!testSubmitted" 
+                  type="submit" 
+                  class="btn btn-primary"
+                  :disabled="!allQuestionsAnswered"
+                >
+                  <i data-lucide="check"></i>
+                  Corregir test
+                </button>
+                
+                <button 
+                  v-if="testSubmitted && !testPassed" 
+                  type="button" 
+                  @click="retryTest"
+                  class="btn btn-secondary"
+                >
+                  <i data-lucide="refresh-cw"></i>
+                  Intentar de nuevo
+                </button>
+                
+                <a 
+                  v-if="testSubmitted && testPassed && nextLessonId"
+                  :href="'#/lesson/' + nextLessonId"
+                  class="btn btn-success"
+                >
+                  <i data-lucide="arrow-right"></i>
+                  Siguiente lección
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div v-else class="lesson-not-found">
+          <i data-lucide="alert-triangle"></i>
+          <h2>Lección no encontrada</h2>
+          <p>La lección que buscas no existe.</p>
+          <a href="#/dashboard" class="btn btn-primary">
+            <i data-lucide="home"></i>
+            Volver al dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Default / Home -->
+      <div v-if="currentRoute === 'home'" class="view view-home">
+        <div class="hero">
+          <h1>De <span class="text-vb">VB.NET</span> a <span class="text-php">PHP + Symfony + Vue.js</span></h1>
+          <p class="hero-subtitle">Curso avanzado para programadores que quieren dar el salto al stack moderno</p>
+          
+          <div class="hero-features">
+            <div class="feature">
+              <i data-lucide="git-branch"></i>
+              <span>23 lecciones estructuradas</span>
+            </div>
+            <div class="feature">
+              <i data-lucide="code-2"></i>
+              <span>Comparativas VB.NET vs PHP</span>
+            </div>
+            <div class="feature">
+              <i data-lucide="database"></i>
+              <span>Doctrine + SQL Server</span>
+            </div>
+            <div class="feature">
+              <i data-lucide="monitor"></i>
+              <span>Vue 3 + Symfony API</span>
+            </div>
+          </div>
+          
+          <div class="hero-actions">
+            <a href="#/login" class="btn btn-primary btn-lg">
+              <i data-lucide="log-in"></i>
+              Comenzar ahora
+            </a>
+            <a href="#/dashboard" class="btn btn-secondary btn-lg">
+              <i data-lucide="layout-dashboard"></i>
+              Ver progreso
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>VB→PHP Curso © 2026 | Edu1987PS</p>
+    </footer>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Prism.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-vbnet.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  
+  <!-- App Scripts -->
+  <script src="js/store.js"></script>
+  <script src="js/lessons.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
