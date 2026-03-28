@@ -162,6 +162,11 @@ const app = createApp({
     }
 
     function highlightCode(code, lang) {
+      // Handle undefined or null code
+      if (!code) {
+        return '';
+      }
+      
       try {
         if (typeof hljs !== 'undefined' && hljs.getLanguage(lang)) {
           return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
@@ -170,7 +175,7 @@ const app = createApp({
         console.warn('[VB→PHP Course] Highlight error:', e);
       }
       // Fallback: escape HTML
-      return code
+      return String(code)
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
