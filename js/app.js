@@ -40,6 +40,7 @@ const app = createApp({
     const testSubmitted = ref(false);
     const testScore = ref(null);
     const testPassed = ref(false);
+    const pendingLessonId = ref(null);
 
     // Computed
     const totalLessons = computed(() => window.LESSONS.length);
@@ -113,7 +114,15 @@ const app = createApp({
         store.saveAuth(username);
         isLoggedIn.value = true;
         loginError.value = '';
-        navigateTo('dashboard');
+        
+        // Redirect to pending lesson or dashboard
+        if (pendingLessonId.value) {
+          currentLessonId.value = pendingLessonId.value;
+          currentRoute.value = 'lesson';
+          pendingLessonId.value = null;
+        } else {
+          navigateTo('dashboard');
+        }
       } else {
         loginError.value = 'Credenciales incorrectas. Usa: edu / curso2026';
       }
@@ -212,6 +221,9 @@ const app = createApp({
 
     function handleHashChange() {
       const hash = window.location.hash.slice(1) || '/';
+      
+      // First check auth
+      checkAuth();
 
       if (hash === '/' || hash === '') {
         currentRoute.value = isLoggedIn.value ? 'dashboard' : 'home';
@@ -223,9 +235,16 @@ const app = createApp({
         currentRoute.value = isLoggedIn.value ? 'lessons' : 'login';
       } else if (hash.startsWith('/lesson/')) {
         const id = hash.split('/')[2];
-        currentLessonId.value = parseInt(id);
-        currentRoute.value = isLoggedIn.value ? 'lesson' : 'login';
-        resetTest();
+        if (isLoggedIn.value) {
+          currentLessonId.value = parseInt(id);
+          currentRoute.value = 'lesson';
+          pendingLessonId.value = null;
+          resetTest();
+        } else {
+          // Store pending lesson and redirect to login
+          pendingLessonId.value = parseInt(id);
+          currentRoute.value = 'login';
+        }
       }
     }
 
