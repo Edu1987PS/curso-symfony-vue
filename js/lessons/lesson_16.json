@@ -1,0 +1,39 @@
+{
+  "id": 16,
+  "title": "Doctrine ORM con SQL Server",
+  "category": "symfony",
+  "module": 4,
+  "estimatedTime": "50 min",
+  "content": "<h2>Doctrine ORM</h2><p>Doctrine es el ORM (Object-Relational Mapper) de Symfony. Mapea clases PHP a tablas de BD.</p><h2>Entidades</h2><p>Las entidades son clases que representan tablas.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Entidad Usuario",
+      "code": "<?php\nnamespace App\\Entity;\n\nuse Doctrine\\ORM\\Mapping as ORM;\nuse Symfony\\Component\\Validator\\Constraints as Assert;\n\n#[ORM\\Entity]\n#[ORM\\Table(name: 'usuarios')]\nclass Usuario {\n    \n    #[ORM\\Id]\n    #[ORM\\GeneratedValue]\n    #[ORM\\Column(type: 'integer')]\n    private ?int $id = null;\n    \n    #[ORM\\Column(type: 'string', length: 100)]\n    #[Assert\\NotBlank]\n    private string $nombre;\n    \n    #[ORM\\Column(type: 'string', length: 180, unique: true)]\n    #[Assert\\Email]\n    private string $email;\n    \n    #[ORM\\Column(type: 'datetime_immutable')]\n    private \\DateTimeImmutable $createdAt;\n    \n    public function __construct() {\n        $this->createdAt = new \\DateTimeImmutable();\n    }\n}"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que es Doctrine?",
+      "options": [
+        "Servidor BD",
+        "ORM",
+        "Plantilla",
+        "Router"
+      ],
+      "correct": 1,
+      "explanation": "Doctrine es el ORM de Symfony."
+    },
+    {
+      "question": "Que atributo marca una entidad?",
+      "options": [
+        "#[Entity]",
+        "#[ORM\\Entity]",
+        "#[Table]",
+        "#[ORM\\Table]"
+      ],
+      "correct": 1,
+      "explanation": "#[ORM\\Entity] marca una clase como entidad."
+    }
+  ]
+}

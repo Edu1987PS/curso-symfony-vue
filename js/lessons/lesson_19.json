@@ -1,0 +1,39 @@
+{
+  "id": 19,
+  "title": "Directivas Vue: v-if, v-for, v-bind, v-on",
+  "category": "vue",
+  "module": 5,
+  "estimatedTime": "35 min",
+  "content": "<h2>Directivas Vue</h2><p>Atributos especiales que anaden funcionalidad al DOM.</p><ul><li><strong>v-if:</strong> Condicionales</li><li><strong>v-for:</strong> Bucles</li><li><strong>v-bind:</strong> Bindear atributos (abreviado :)</li><li><strong>v-on:</strong> Eventos (abreviado @)</li><li><strong>v-model:</strong> Two-way binding</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "html",
+      "label": "Directivas Vue",
+      "code": "<div id=\"app\">\n    <!-- Condicional -->\n    <p v-if=\"esMiembro\">Bienvenido VIP</p>\n    <p v-else>Registrate</p>\n    \n    <!-- Bucle -->\n    <ul>\n        <li v-for=\"tarea in tareas\" :key=\"tarea.id\">\n            {{ tarea.texto }}\n        </li>\n    </ul>\n    \n    <!-- Eventos -->\n    <button @click=\"incrementar\">+1</button>\n    \n    <!-- Two-way binding -->\n    <input v-model=\"nombre\">\n    <p>Hola {{ nombre }}</p>\n</div>"
+    }
+  ],
+  "test": [
+    {
+      "question": "v-if es para?",
+      "options": [
+        "Iterar",
+        "Condicionales",
+        "Eventos",
+        "Estilos"
+      ],
+      "correct": 1,
+      "explanation": "v-if controla si un elemento existe."
+    },
+    {
+      "question": "Cual es la abreviacion de v-on:click?",
+      "options": [
+        ":click",
+        "@click",
+        "*click",
+        "v-click"
+      ],
+      "correct": 1,
+      "explanation": "@ es la abreviacion de v-on:."
+    }
+  ]
+}

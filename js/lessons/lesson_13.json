@@ -1,0 +1,44 @@
+{
+  "id": 13,
+  "title": "Instalacion y estructura de proyecto Symfony",
+  "category": "symfony",
+  "module": 4,
+  "estimatedTime": "45 min",
+  "content": "<h2>Crear proyecto Symfony</h2><p>Usa Composer para crear un nuevo proyecto Symfony skeleton.</p><h2>Estructura</h2><ul><li><strong>bin/:</strong> Ejecutables de consola</li><li><strong>config/:</strong> Configuracion</li><li><strong>public/:</strong> Document root</li><li><strong>src/:</strong> Tu codigo</li><li><strong>var/:</strong> Cache y logs</li><li><strong>vendor/:</strong> Dependencias</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "bash",
+      "label": "Crear proyecto",
+      "code": "composer create-project symfony/skeleton mi-proyecto\ncd mi-proyecto\ncomposer require symfony/framework-pack\nphp -S localhost:8000 -t public"
+    },
+    {
+      "lang": "bash",
+      "label": "Estructura",
+      "code": "mi-proyecto/\n├── bin/console\n├── config/\n│   ├── packages/\n│   ├── routes.yaml\n│   └── services.yaml\n├── public/\n│   └── index.php\n├── src/\n│   ├── Controller/\n│   ├── Entity/\n│   └── Repository/\n├── var/cache/\n├── vendor/\n└── composer.json"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que comando crea proyecto Symfony?",
+      "options": [
+        "symfony new",
+        "composer create-project symfony/skeleton",
+        "php symfony init",
+        "composer init"
+      ],
+      "correct": 1,
+      "explanation": "composer create-project symfony/skeleton crea el proyecto."
+    },
+    {
+      "question": "Cual es el document root?",
+      "options": [
+        "src/",
+        "config/",
+        "public/",
+        "var/"
+      ],
+      "correct": 2,
+      "explanation": "public/ es el document root de Symfony."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": 22,
+  "title": "Disenando la API REST completa",
+  "category": "proyecto",
+  "module": 6,
+  "estimatedTime": "50 min",
+  "content": "<h2>API REST para Gestion de Tareas</h2><p>Vamos a disenar una API REST completa.</p><h2>Endpoints</h2><ul><li>GET /api/tareas - Listar todas</li><li>POST /api/tareas - Crear</li><li>GET /api/tareas/{id} - Obtener una</li><li>PUT /api/tareas/{id} - Actualizar</li><li>DELETE /api/tareas/{id} - Eliminar</li></ul><h2>Codigos HTTP</h2><ul><li>200 OK</li><li>201 Created</li><li>204 No Content</li><li>400 Bad Request</li><li>404 Not Found</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Controlador API",
+      "code": "<?php\n#[Route('/api/tareas')]\nclass TareaApiController {\n    #[Route('', methods: ['GET'])]\n    public function index(): JsonResponse {\n        $tareas = $this->tareaRepo->findAll();\n        return $this->json(['data' => $tareas]);\n    }\n    \n    #[Route('', methods: ['POST'])]\n    public function crear(Request $request): JsonResponse {\n        $data = json_decode($request->getContent(), true);\n        $tarea = new Tarea();\n        $tarea->setTitulo($data['titulo']);\n        $this->em->persist($tarea);\n        $this->em->flush();\n        return $this->json(['data' => $tarea], 201);\n    }\n}"
+    }
+  ],
+  "test": [
+    {
+      "question": "201 Created es para?",
+      "options": [
+        "GET exitoso",
+        "POST creo recurso",
+        "DELETE exitoso",
+        "Error"
+      ],
+      "correct": 1,
+      "explanation": "201 indica que un nuevo recurso fue creado."
+    },
+    {
+      "question": "204 se usa en?",
+      "options": [
+        "GET",
+        "POST",
+        "DELETE exitoso",
+        "Error"
+      ],
+      "correct": 2,
+      "explanation": "204 No Content para DELETE exitoso."
+    }
+  ]
+}

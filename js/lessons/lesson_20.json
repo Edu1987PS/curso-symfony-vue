@@ -1,0 +1,44 @@
+{
+  "id": 20,
+  "title": "Componentes en Vue 3",
+  "category": "vue",
+  "module": 5,
+  "estimatedTime": "40 min",
+  "content": "<h2>Componentes Vue</h2><p>Bloques reutilizables de interfaz.</p><h2>Props</h2><p>Datos que el padre pasa al hijo.</p><h2>Events</h2><p>Los hijos emiten eventos al padre.</p><h2>Slots</h2><p>Permiten insertar contenido.</p>",
+  "codeExamples": [
+    {
+      "lang": "javascript",
+      "label": "Componente Tarjeta",
+      "code": "export default {\n    name: 'TarjetaUsuario',\n    props: {\n        nombre: { type: String, required: true },\n        email: String,\n        avatar: { type: String, default: '/img/default.png' }\n    },\n    emits: ['click', 'eliminar'],\n    setup(props, { emit }) {\n        function handleClick() {\n            emit('click', props.nombre)\n        }\n        return { handleClick }\n    },\n    template: `\n        <div class=\"tarjeta\" @click=\"handleClick\">\n            <img :src=\"avatar\" :alt=\"nombre\">\n            <h3>{{ nombre }}</h3>\n            <p>{{ email }}</p>\n        </div>\n    `\n}"
+    },
+    {
+      "lang": "html",
+      "label": "Uso del componente",
+      "code": "<tarjeta-usuario\n    v-for=\"u in usuarios\"\n    :key=\"u.id\"\n    :nombre=\"u.nombre\"\n    :email=\"u.email\"\n    @click=\"seleccionar\"\n/>"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que son las props?",
+      "options": [
+        "Eventos",
+        "Datos del padre al hijo",
+        "Metodos",
+        "Estilos"
+      ],
+      "correct": 1,
+      "explanation": "props son datos que se pasan de padre a hijo."
+    },
+    {
+      "question": "Como emiten eventos los hijos?",
+      "options": [
+        "this.emit()",
+        "$emit()",
+        "emit()",
+        "sendEvent()"
+      ],
+      "correct": 2,
+      "explanation": "emit('evento', payload) en setup()."
+    }
+  ]
+}

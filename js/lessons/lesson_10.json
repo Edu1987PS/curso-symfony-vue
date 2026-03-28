@@ -1,0 +1,43 @@
+{
+  "id": 10,
+  "title": "Herencia e interfaces en PHP",
+  "category": "poo",
+  "module": 3,
+  "estimatedTime": "45 min",
+  "content": "<h2>Herencia en PHP</h2><p>PHP soporta herencia simple: una clase puede heredar de UNA sola clase padre.</p><h2>Interfaces</h2><p>Definen un contrato. Una clase puede implementar MULTIPLES interfaces.</p><h2>Clases abstractas</h2><p>No se pueden instanciar, solo heredar.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Herencia PHP",
+      "code": "<?php\nabstract class Animal {\n    abstract public function hacerSonido(): string;\n}\n\ninterface Mascota {\n    public function jugar(): void;\n}\n\ninterface TresDimensional {\n    public function getVolumen(): float;\n}\n\nclass Perro extends Animal implements Mascota {\n    public function hacerSonido(): string {\n        return 'Guau!';\n    }\n    \n    public function jugar(): void {\n        echo 'Busca la pelota';\n    }\n}\n\nclass Gato extends Animal implements Mascota {\n    public function hacerSonido(): string {\n        return 'Miau!';\n    }\n    \n    public function jugar(): void {\n        echo 'Persigue el puntero laser';\n    }\n}\n\n// Uso\n$perro = new Perro();\necho $perro->hacerSonido();\n$perro->jugar();\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET usa Inherits e Implements\n' Public Class Perro\n'     Inherits Animal\n'     Implements Mascota\n' End Class",
+    "php": "<?php\n// PHP: class Hija extends Padre implements Interfaz1, Interfaz2\n// VB.NET: Class Hija\n//     Inherits Padre\n//     Implements Interfaz1, Interfaz2\n// End Class\n?>"
+  },
+  "test": [
+    {
+      "question": "Cuantas clases puede heredar PHP?",
+      "options": [
+        "Ilimitadas",
+        "Una sola",
+        "Dos",
+        "Ninguna"
+      ],
+      "correct": 1,
+      "explanation": "PHP solo permite herencia simple."
+    },
+    {
+      "question": "Para que sirven las interfaces?",
+      "options": [
+        "Reutilizar codigo",
+        "Definir un contrato",
+        "Crear objetos",
+        "Herencia multiple"
+      ],
+      "correct": 1,
+      "explanation": "Las interfaces definen un contrato que las clases deben cumplir."
+    }
+  ]
+}

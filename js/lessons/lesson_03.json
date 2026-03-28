@@ -1,0 +1,54 @@
+{
+  "id": 3,
+  "title": "Composer: Gestion de dependencias PHP",
+  "category": "entorno",
+  "module": 1,
+  "estimatedTime": "30 min",
+  "content": "<h2>Que es Composer?</h2><p>Composer es el gestor de dependencias de PHP. Es similar a npm en Node.js o NuGet en .NET. Permite descargar y actualizar librerias automaticamente.</p><h2>Instalacion en Windows</h2><ol><li>Descarga Composer desde <a href='https://getcomposer.org/download/' target='_blank'>getcomposer.org</a></li><li>Ejecuta el instalador</li><li>Asegurate de marcar \"Developer Mode\" si ya tienes PHP</li><li>Siguiente > Browse > Selecciona php.exe de XAMPP > Next</li><li>Finalizar</li></ol><h2>Verificar instalacion</h2>",
+  "codeExamples": [
+    {
+      "lang": "bash",
+      "label": "Comandos Composer",
+      "code": "# Verificar instalacion\ncomposer --version\n\n# Crear proyecto Symfony\ncomposer create-project symfony/skeleton mi-proyecto\n\n# Instalar dependencia\ncomposer require symfony/http-foundation\n\n# Actualizar todas las dependencias\ncomposer update\n\n# Instalar desde composer.json\ncomposer install"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' .NET usa NuGet para dependencias\n' En Visual Studio:\n' Tools > NuGet Package Manager > Manage NuGet Packages\n'\n' O por consola (Package Manager Console):\n' Install-Package Newtonsoft.Json\n'\n' O dotnet CLI:\n' dotnet add package Newtonsoft.Json",
+    "php": "<?php\n// composer.json ejemplo:\n// {\n//     \"require\": {\n//         \"symfony/http-foundation\": \"^6.0\"\n//     }\n// }\n\n// Composer instala las dependencias en vendor/\n// Y genera un autoload.php para cargar clases automaticamente\n\nrequire 'vendor/autoload.php';\n\nuse Symfony\\Component\\HttpFoundation\\Request;\n$request = Request::createFromGlobals();\n?>"
+  },
+  "test": [
+    {
+      "question": "Que es Composer?",
+      "options": [
+        "Un framework PHP",
+        "Gestor de dependencias PHP",
+        "Un editor de codigo",
+        "Un servidor web"
+      ],
+      "correct": 1,
+      "explanation": "Composer es el gestor de dependencias estandar de PHP."
+    },
+    {
+      "question": "Donde instala Composer las dependencias?",
+      "options": [
+        "En el proyecto",
+        "En vendor/",
+        "En C:\\Windows",
+        "En htdocs"
+      ],
+      "correct": 1,
+      "explanation": "Composer instala las librerías en la carpeta vendor/."
+    },
+    {
+      "question": "Que archivo define las dependencias en PHP?",
+      "options": [
+        "package.json",
+        "composer.json",
+        "Gemfile",
+        "requirements.txt"
+      ],
+      "correct": 1,
+      "explanation": "composer.json define las dependencias del proyecto PHP."
+    }
+  ]
+}

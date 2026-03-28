@@ -1,0 +1,39 @@
+{
+  "id": 23,
+  "title": "Frontend Vue 3 completo - Gestion de tareas",
+  "category": "proyecto",
+  "module": 6,
+  "estimatedTime": "60 min",
+  "content": "<h2>Aplicacion Vue 3 completa</h2><p> CRUD completo de tareas con Vue 3.</p><h2>Funcionalidades</h2><ul><li>Listar tareas</li><li>Crear tarea</li><li>Marcar completada</li><li>Eliminar tarea</li><li>Filtrar</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "html",
+      "label": "App Vue completa",
+      "code": "<div id=\"app\">\n    <h1>Gestor de Tareas</h1>\n    \n    <form @submit.prevent=\"agregarTarea\">\n        <input v-model=\"nuevaTarea\" placeholder=\"Nueva tarea\">\n        <button type=\"submit\">Agregar</button>\n    </form>\n    \n    <ul>\n        <li v-for=\"t in tareas\" :key=\"t.id\" :class=\"{completada: t.completada}\">\n            <input type=\"checkbox\" v-model=\"t.completada\" @change=\"guardar\">\n            {{ t.titulo }}\n            <button @click=\"eliminar(t.id)\">X</button>\n        </li>\n    </ul>\n</div>\n\n<script>\nconst { createApp, ref, onMounted } = Vue\n\ncreateApp({\n    setup() {\n        const tareas = ref([])\n        const nuevaTarea = ref('')\n        \n        function agregarTarea() {\n            if (nuevaTarea.value.trim()) {\n                tareas.value.push({\n                    id: Date.now(),\n                    titulo: nuevaTarea.value,\n                    completada: false\n                })\n                nuevaTarea.value = ''\n                guardar()\n            }\n        }\n        \n        function eliminar(id) {\n            tareas.value = tareas.value.filter(t => t.id !== id)\n            guardar()\n        }\n        \n        function guardar() {\n            localStorage.setItem('tareas', JSON.stringify(tareas.value))\n        }\n        \n        onMounted(() => {\n            const saved = localStorage.getItem('tareas')\n            if (saved) tareas.value = JSON.parse(saved)\n        })\n        \n        return { tareas, nuevaTarea, agregarTarea, eliminar }\n    }\n}).mount('#app')\n</script>"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que hace v-model en un input?",
+      "options": [
+        "Solo mostrar",
+        "Two-way binding",
+        "Solo lectura",
+        "Eventos"
+      ],
+      "correct": 1,
+      "explanation": "v-model sincroniza input y variable bidireccionalmente."
+    },
+    {
+      "question": "@submit.prevent previene?",
+      "options": [
+        "Click",
+        "Recarga del form",
+        "Hover",
+        "Focus"
+      ],
+      "correct": 1,
+      "explanation": "@submit.prevent evita la recarga de pagina."
+    }
+  ]
+}

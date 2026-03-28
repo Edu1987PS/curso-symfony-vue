@@ -1,0 +1,43 @@
+{
+  "id": 11,
+  "title": "Traits y namespaces",
+  "category": "poo",
+  "module": 3,
+  "estimatedTime": "40 min",
+  "content": "<h2>Traits</h2><p>Los Traits resuelven la limitacion de herencia simple permitiendo reutilizar codigo horizontalmente.</p><h2>Namespaces</h2><p>Organizan codigo y evitan conflictos de nombres.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Traits y namespaces",
+      "code": "<?php\n// Traits\ntrait Logger {\n    public function log(string $msg): void {\n        echo '[LOG] ' . date('Y-m-d H:i:s') . \": $msg\\n\";\n    }\n}\n\ntrait Timestamps {\n    private DateTime $createdAt;\n    \n    public function __construct() {\n        $this->createdAt = new DateTime();\n    }\n    \n    public function getCreatedAt(): DateTime {\n        return $this->createdAt;\n    }\n}\n\nclass Usuario {\n    use Logger, Timestamps;\n    \n    public string $nombre;\n    \n    public function __construct(string $nombre) {\n        $this->nombre = $nombre;\n    }\n}\n\n$u = new Usuario('Edu');\n$u->log('Usuario creado');\n\n// Namespaces\nnamespace App\\Modelos;\n\nclass Usuario {\n    public string $rol = 'usuario';\n}\n\nnamespace App\\Servicios;\n\nclass Usuario {\n    public string $permisos = 'lectura';\n}\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET no tiene traits\n' Usa herencia de interfaces o mixins\n'\n' Namespaces en VB.NET:\n' Namespace App.Modelos\n'     Class Usuario\n'     End Class\n' End Namespace",
+    "php": "<?php\n// Traits son como copiar-y-pegar codigo\n// pero organizado\n\n// use trait TraitNombre;\n\n// Namespaces son como folders\n// namespace App\\Modelos;\n// class Usuario { }\n?>"
+  },
+  "test": [
+    {
+      "question": "Que resuelven los Traits?",
+      "options": [
+        "Herencia multiple",
+        "Rendimiento",
+        "Seguridad",
+        "Tipos"
+      ],
+      "correct": 0,
+      "explanation": "Los Traits permiten compartir metodos entre clases sin herencia multiple."
+    },
+    {
+      "question": "Que hace namespace App\\Modelos?",
+      "options": [
+        "Crea una clase",
+        "Crea un folder logico",
+        "Importa archivos",
+        "Define una interfaz"
+      ],
+      "correct": 1,
+      "explanation": "namespace crea una organizacion logica del codigo."
+    }
+  ]
+}

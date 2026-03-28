@@ -1,0 +1,44 @@
+{
+  "id": 15,
+  "title": "Twig: motor de plantillas",
+  "category": "symfony",
+  "module": 4,
+  "estimatedTime": "45 min",
+  "content": "<h2>Que es Twig?</h2><p>Twig es el motor de plantillas de Symfony. Separa logica de presentacion.</p><h2>Sintaxis</h2><ul><li><strong>{{ variable }}:</strong> Imprimir</li><li><strong>{% comando %}:</strong> Logica (for, if)</li><li><strong>{# comentario #}:</strong> Comentarios</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "html",
+      "label": "base.html.twig",
+      "code": "<!DOCTYPE html>\n<html>\n<head>\n    <title>{% block title %}Mi App{% endblock %}</title>\n</head>\n<body>\n    {% block body %}{% endblock %}\n</body>\n</html>"
+    },
+    {
+      "lang": "html",
+      "label": "usuario/lista.html.twig",
+      "code": "{% extends 'base.html.twig' %}\n\n{% block title %}Lista de Usuarios{% endblock %}\n\n{% block body %}\n    <h1>Usuarios</h1>\n    \n    {% for usuario in usuarios %}\n        <li>{{ usuario.nombre }}</li>\n    {% endfor %}\n{% endblock %}"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que hace {{ variable }} en Twig?",
+      "options": [
+        "Asigna valor",
+        "Imprime valor",
+        "Comenta",
+        "Condicional"
+      ],
+      "correct": 1,
+      "explanation": "{{ }} imprime valores escapando HTML."
+    },
+    {
+      "question": "Que sintaxis es para if/for?",
+      "options": [
+        "{{ if }}",
+        "{% if %}",
+        "<% if %>",
+        "// if"
+      ],
+      "correct": 1,
+      "explanation": "{% %} se usa para estructuras de control."
+    }
+  ]
+}

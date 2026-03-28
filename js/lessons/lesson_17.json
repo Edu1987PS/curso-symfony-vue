@@ -1,0 +1,44 @@
+{
+  "id": 17,
+  "title": "Formularios y validacion",
+  "category": "symfony",
+  "module": 4,
+  "estimatedTime": "45 min",
+  "content": "<h2>Formularios en Symfony</h2><p>Symfony genera formularios automaticamente desde las entidades.</p><h2>Validacion</h2><p>Usa atributos (constraints) para validar datos.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Entidad con validacion",
+      "code": "<?php\nuse Symfony\\Component\\Validator\\Constraints as Assert;\n\nclass Usuario {\n    #[Assert\\NotBlank(message: 'El nombre es obligatorio')]\n    #[Assert\\Length(min: 3, max: 100)]\n    private string $nombre;\n    \n    #[Assert\\NotBlank]\n    #[Assert\\Email(message: 'Email invalido')]\n    private string $email;\n    \n    #[Assert\\NotBlank]\n    #[Assert\\Length(min: 8)]\n    private string $password;\n}"
+    },
+    {
+      "lang": "php",
+      "label": "Controlador",
+      "code": "<?php\npublic function registro(Request $request): Response {\n    $usuario = new Usuario();\n    $form = $this->createForm(UsuarioType::class, $usuario);\n    \n    $form->handleRequest($request);\n    \n    if ($form->isSubmitted() && $form->isValid()) {\n        // Guardar en BD\n        $em->persist($usuario);\n        $em->flush();\n        \n        return $this->redirectToRoute('home');\n    }\n    \n    return $this->render('registro.html.twig', [\n        'form' => $form->createView()\n    ]);\n}"
+    }
+  ],
+  "test": [
+    {
+      "question": "Como se valida en Symfony?",
+      "options": [
+        "IF manual",
+        "Atributos/constraints",
+        "JavaScript",
+        "Solo en BD"
+      ],
+      "correct": 1,
+      "explanation": "Symfony usa atributos como #[Assert\\NotBlank]."
+    },
+    {
+      "question": "Cuando se valida el formulario?",
+      "options": [
+        "Nunca",
+        "Solo al enviar",
+        "$form->isValid()",
+        "Automaticamente"
+      ],
+      "correct": 2,
+      "explanation": "$form->isValid() valida contra los constraints."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": 14,
+  "title": "Rutas y Controladores en Symfony",
+  "category": "symfony",
+  "module": 4,
+  "estimatedTime": "45 min",
+  "content": "<h2>Rutas en Symfony</h2><p>Las rutas mapean URLs a controladores usando atributos PHP 8+.</p><h2>Controladores</h2><p>Los controladores reciben una peticion y devuelven una Response.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Controlador",
+      "code": "<?php\nnamespace App\\Controller;\n\nuse Symfony\\Component\\HttpFoundation\\Response;\nuse Symfony\\Component\\HttpFoundation\\JsonResponse;\nuse Symfony\\Component\\Routing\\Annotation\\Route;\n\nclass DefaultController {\n    \n    #[Route('/', name: 'home')]\n    public function index(): Response {\n        return new Response('<h1>Bienvenido!</h1>');\n    }\n    \n    #[Route('/hola/{nombre}', name: 'saludo')]\n    public function saludo(string $nombre): Response {\n        return new Response(\"Hola, $nombre!\");\n    }\n    \n    #[Route('/api/usuarios', methods: ['GET'])]\n    public function usuarios(): JsonResponse {\n        return new JsonResponse([\n            ['id' => 1, 'nombre' => 'Ana'],\n            ['id' => 2, 'nombre' => 'Luis']\n        ]);\n    }\n}"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que atributo define rutas en Symfony?",
+      "options": [
+        "@Route",
+        "#[Route]",
+        "Route:",
+        "->route()"
+      ],
+      "correct": 1,
+      "explanation": "#[Route] es el atributo PHP 8 para definir rutas."
+    },
+    {
+      "question": "Que devuelve un controlador?",
+      "options": [
+        "String",
+        "Response",
+        "View",
+        "Array"
+      ],
+      "correct": 1,
+      "explanation": "Los controladores devuelven un objeto Response."
+    }
+  ]
+}

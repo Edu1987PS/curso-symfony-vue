@@ -1,0 +1,53 @@
+{
+  "id": 12,
+  "title": "Autoloading con Composer - PSR-4",
+  "category": "poo",
+  "module": 3,
+  "estimatedTime": "35 min",
+  "content": "<h2>Autoloading</h2><p>Permite cargar clases automaticamente sin include/require.</p><h2>PSR-4</h2><p>Estandar que mapea namespaces a carpetas: App\\Modelos\\Usuario → src/Modelos/Usuario.php</p>",
+  "codeExamples": [
+    {
+      "lang": "json",
+      "label": "composer.json",
+      "code": "{\n  \"autoload\": {\n    \"psr-4\": {\n      \"App\\\\\\\\\": \"src/\"\n    }\n  }\n}"
+    },
+    {
+      "lang": "php",
+      "label": "Estructura",
+      "code": "mi-proyecto/\n├── src/\n│   ├── Modelos/\n│   │   └── Usuario.php    → namespace App\\Modelos\n│   └── Servicios/\n│       └── EmailService.php → namespace App\\Servicios\n├── vendor/\n│   └── autoload.php\n└── public/\n    └── index.php"
+    },
+    {
+      "lang": "php",
+      "label": "Uso",
+      "code": "<?php\nrequire 'vendor/autoload.php';\n\nuse App\\Modelos\\Usuario;\nuse App\\Servicios\\EmailService;\n\n$u = new Usuario('Edu', 'edu@example.com');\n$email = new EmailService();\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' .NET carga clases automaticamente\n' si estan en el mismo assembly\n'\n' Imports App.Modelos\n' Dim u As New Usuario()",
+    "php": "<?php\n// Composer genera el autoloader\n// que busca clases en vendor/autoload.php\n// segun las规则 PSR-4\n?>"
+  },
+  "test": [
+    {
+      "question": "Que hace composer dump-autoload?",
+      "options": [
+        "Instala deps",
+        "Regenera autoloader",
+        "Crea proyecto",
+        "Limpia cache"
+      ],
+      "correct": 1,
+      "explanation": "Regenera el archivo de autoloading."
+    },
+    {
+      "question": "PSR-4 mapea namespaces a...",
+      "options": [
+        "Archivos",
+        "Carpetas",
+        "Funciones",
+        "Variables"
+      ],
+      "correct": 1,
+      "explanation": "PSR-4 mapea namespaces a carpetas del filesystem."
+    }
+  ]
+}

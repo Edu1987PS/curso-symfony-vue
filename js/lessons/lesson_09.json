@@ -1,0 +1,43 @@
+{
+  "id": 9,
+  "title": "Clases y Objetos en PHP",
+  "category": "poo",
+  "module": 3,
+  "estimatedTime": "50 min",
+  "content": "<h2>Introduccion a la POO en PHP</h2><p>PHP es un lenguaje hibrido: permite programacion procedural y orientada a objetos. Desde PHP 5, la OOP esta completamente implementada.</p><h2>Clases basicas</h2><p>Una clase es un molde para crear objetos.</p><h2>Visibilidad</h2><ul><li><strong>public:</strong> accesible desde cualquier parte</li><li><strong>protected:</strong> accesible desde la clase y sus subclases</li><li><strong>private:</strong> solo accesible desde la propia clase</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Clases PHP",
+      "code": "<?php\nclass Usuario {\n    const TIPO_USUAL = 'normal';\n    \n    public string $nombre;\n    protected int $edad;\n    private string $password;\n    private static int $contador = 0;\n    \n    public function __construct(string $nombre, string $email) {\n        $this->nombre = $nombre;\n        $this->email = $email;\n        self::$contador++;\n    }\n    \n    public function getEdad(): int {\n        return $this->edad;\n    }\n    \n    public function setEdad(int $edad): void {\n        if ($edad >= 0) $this->edad = $edad;\n    }\n    \n    public static function getContador(): int {\n        return self::$contador;\n    }\n}\n\n$u = new Usuario('Edu', 'edu@example.com');\necho Usuario::getContador();\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET\n' Public Class Usuario\n'     Public Property Nombre As String\n'     Protected Edad As Integer\n'     Private Password As String\n' End Class",
+    "php": "<?php\n// Visibilidad:\n// public = Public\n// protected = Protected\n// private = Private\n?>"
+  },
+  "test": [
+    {
+      "question": "Cual es la visibilidad private?",
+      "options": [
+        "Acceso total",
+        "Solo desde la clase",
+        "Desde subclases",
+        "Desde cualquier lugar"
+      ],
+      "correct": 1,
+      "explanation": "private solo permite acceso desde la propia clase."
+    },
+    {
+      "question": "Que es __construct?",
+      "options": [
+        "Destructor",
+        "Constructor",
+        "Metodo estatico",
+        "Constante"
+      ],
+      "correct": 1,
+      "explanation": "__construct es el constructor, se ejecuta al crear el objeto."
+    }
+  ]
+}

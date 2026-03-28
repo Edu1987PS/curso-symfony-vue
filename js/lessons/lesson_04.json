@@ -1,0 +1,43 @@
+{
+  "id": 4,
+  "title": "Symfony CLI: Instalacion y uso",
+  "category": "entorno",
+  "module": 1,
+  "estimatedTime": "25 min",
+  "content": "<h2>Que es Symfony CLI?</h2><p>Symfony CLI es una herramienta de linea de comandos para crear y gestionar proyectos Symfony. Tambien incluye un servidor local integrado.</p><h2>Instalacion en Windows</h2><ol><li>Descarga desde <a href='https://symfony.com/download' target='_blank'>symfony.com/download</a></li><li>Ejecuta el instalador o usa: <code> scoop install symfony-cli </code> (si usas Scoop)</li></ol><h2>Comandos basicos</h2>",
+  "codeExamples": [
+    {
+      "lang": "bash",
+      "label": "Symfony CLI comandos",
+      "code": "# Crear nuevo proyecto\nsymfony new mi-proyecto --full\n\n# Iniciar servidor local\ncd mi-proyecto\nsymfony serve\n\n# Con HTTPS local\nsymfony serve --daemon\n\n# Ver rutas disponibles\nsymfony debug:router\n\n# Ver servicios\nsymfony debug:container"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' .NET tiene dotnet CLI:\n'\n' dotnet new webapp -o mi-proyecto\n' cd mi-proyecto\n' dotnet run\n'\n' dotnet CLI es similar a Symfony CLI",
+    "php": "<?php\n// Symfony CLI crea proyecto con estructura:\n// mi-proyecto/\n// ├── bin/\n// │   └── console\n// ├── config/\n// ├── public/\n// │   └── index.php\n// ├── src/\n// ├── var/\n// ├── vendor/\n// └── composer.json\n?>"
+  },
+  "test": [
+    {
+      "question": "Que es Symfony CLI?",
+      "options": [
+        "Un framework",
+        "Herramienta CLI para Symfony",
+        "Un editor",
+        "Una base de datos"
+      ],
+      "correct": 1,
+      "explanation": "Symfony CLI es la herramienta de línea de comandos para proyectos Symfony."
+    },
+    {
+      "question": "Que comando inicia el servidor Symfony?",
+      "options": [
+        "php server:start",
+        "symfony serve",
+        "symfony run",
+        "symfony start"
+      ],
+      "correct": 1,
+      "explanation": "symfony serve inicia el servidor local de desarrollo."
+    }
+  ]
+}

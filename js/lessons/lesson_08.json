@@ -1,0 +1,54 @@
+{
+  "id": 8,
+  "title": "Condicionales: if, elseif, else, switch",
+  "category": "php",
+  "module": 2,
+  "estimatedTime": "25 min",
+  "content": "<h2>Estructuras condicionales</h2><p>Permiten ejecutar codigo segun una condicion.</p><h2>Sintaxis if-elseif-else</h2><h2>Operador ternario</h2><p>Forma compacta para condiciones simples.</p><h2>Switch</h2><p>Para multiples casos de una misma variable.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Condicionales PHP",
+      "code": "<?php\n$dia = date('N');  // 1=Lunes, 7=Domingo\n\n// if-elseif-else\nif ($dia == 1) {\n    echo 'Hoy es Lunes';\n} elseif ($dia == 2) {\n    echo 'Hoy es Martes';\n} elseif ($dia >= 3 && $dia <= 5) {\n    echo 'Dia laboral';\n} else {\n    echo 'Fin de semana';\n}\n\n// Operador ternario (compact)\n$resultado = ($edad >= 18) ? 'Mayor' : 'Menor';\n$clase = $esActivo ? 'active' : 'inactive';\n\n// Ternario encadenado (PHP 7+)\n$status = ($nota >= 9) ? 'Sobresaliente'\n            : ($nota >= 7) ? 'Notable'\n            : ($nota >= 5) ? 'Aprobado'\n            : 'Suspendido';\n\n// Switch\nswitch ($color) {\n    case 'rojo':\n        echo 'Color rojo';\n        break;\n    case 'azul':\n    case 'verde':\n        echo 'Color frio';\n        break;\n    default:\n        echo 'Color desconocido';\n}\n\n// Match (PHP 8+)\n$tipo = match($status) {\n    'active' => 'Usuario activo',\n    'inactive' => 'Usuario inactivo',\n    'banned' => 'Usuario baneado',\n    default => 'Estado desconocido',\n};\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET usa If-Then-ElseIf-Else\n' Y Select Case en lugar de switch\n'\n' Dim dia = 3\n' If dia = 1 Then\n'     Console.WriteLine(\"Lunes\")\n' ElseIf dia = 2 Then\n'     Console.WriteLine(\"Martes\")\n' Else\n'     Console.WriteLine(\"Otro dia\")\n' End If\n'\n' Select Case dia\n'     Case 1\n'         Console.WriteLine(\"Lunes\")\n'     Case 2 To 5\n'         Console.WriteLine(\"Laborable\")\n'     Case Else\n'         Console.WriteLine(\"Fin\")\n' End Select",
+    "php": "<?php\n// Match es nuevo en PHP 8 (como switch pero devuelve valor)\n$resultado = match($opcion) {\n    'a' => 'Opcion A',\n    'b' => 'Opcion B',\n    default => 'Otra',\n};\n// match es mas limpio que switch para asignaciones\n?>"
+  },
+  "test": [
+    {
+      "question": "Cual es la sintaxis correcta del operador ternario?",
+      "options": [
+        "if $a ? 'si' : 'no'",
+        "$a ? 'si' : 'no'",
+        "$a ?: 'no'",
+        "'si' ?: $a"
+      ],
+      "correct": 1,
+      "explanation": "La sintaxis es: condicion ? valor_si_true : valor_si_false"
+    },
+    {
+      "question": "Que falta en un switch para que no caiga al siguiente caso?",
+      "options": [
+        "break",
+        "continue",
+        "exit",
+        "return"
+      ],
+      "correct": 0,
+      "explanation": "break evita que la ejecucion caiga al siguiente case (fall-through)."
+    },
+    {
+      "question": "Match esta disponible desde PHP...?",
+      "options": [
+        "PHP 5",
+        "PHP 7",
+        "PHP 8",
+        "PHP 9"
+      ],
+      "correct": 2,
+      "explanation": "Match es nuevo en PHP 8."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": 21,
+  "title": "Integracion Vue 3 con API de Symfony",
+  "category": "vue",
+  "module": 5,
+  "estimatedTime": "45 min",
+  "content": "<h2>Vue como cliente API</h2><p>Vue consume endpoints JSON via fetch o axios.</p><h2>Metodos HTTP</h2><ul><li><strong>GET:</strong> Obtener datos</li><li><strong>POST:</strong> Crear</li><li><strong>PUT:</strong> Actualizar</li><li><strong>DELETE:</strong> Eliminar</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "javascript",
+      "label": "Vue + API",
+      "code": "const { ref, onMounted } = Vue\n\ncreateApp({\n    setup() {\n        const usuarios = ref([])\n        const cargando = ref(false)\n        \n        async function obtenerUsuarios() {\n            cargando.value = true\n            try {\n                const res = await fetch('/api/usuarios')\n                usuarios.value = await res.json()\n            } finally {\n                cargando.value = false\n            }\n        }\n        \n        async function crearUsuario(datos) {\n            await fetch('/api/usuarios', {\n                method: 'POST',\n                headers: { 'Content-Type': 'application/json' },\n                body: JSON.stringify(datos)\n            })\n            await obtenerUsuarios()\n        }\n        \n        onMounted(obtenerUsuarios)\n        \n        return { usuarios, cargando, crearUsuario }\n    }\n}).mount('#app')"
+    }
+  ],
+  "test": [
+    {
+      "question": "GET sirve para?",
+      "options": [
+        "Crear",
+        "Obtener datos",
+        "Actualizar",
+        "Eliminar"
+      ],
+      "correct": 1,
+      "explanation": "GET solicita datos del servidor."
+    },
+    {
+      "question": "POST sirve para?",
+      "options": [
+        "Obtener",
+        "Crear datos",
+        "Eliminar",
+        "Actualizar"
+      ],
+      "correct": 1,
+      "explanation": "POST envia datos nuevos al servidor."
+    }
+  ]
+}

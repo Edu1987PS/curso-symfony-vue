@@ -1,0 +1,43 @@
+{
+  "id": 2,
+  "title": "Virtual Hosts en XAMPP",
+  "category": "entorno",
+  "module": 1,
+  "estimatedTime": "25 min",
+  "content": "<h2>Que son los Virtual Hosts?</h2><p>Los Virtual Hosts permiten tener multiples sitios web en el mismo servidor Apache. En lugar de acceder a <code>http://localhost/mi-proyecto</code>, puedes usar <code>http://mi-proyecto.test</code>.</p><h2>Por que usarlos?</h2><ul><li>URLs mas profesionales en desarrollo</li><li>Simulan mejor el entorno de produccion</li><li>Cada proyecto tiene su propia configuracion</li></ul><h2>Configuracion</h2><h3>Paso 1: Editar httpd-vhosts.conf</h3><p>Archivo: <code>C:\\xampp\\apache\\conf\\extra\\httpd-vhosts.conf</code></p><h3>Paso 2: Agregar entrada DNS local</h3><p>Archivo: <code>C:\\Windows\\System32\\drivers\\etc\\hosts</code></p><pre>127.0.0.1    mi-proyecto.test</pre>",
+  "codeExamples": [
+    {
+      "lang": "apache",
+      "label": "httpd-vhosts.conf",
+      "code": "# Agregar al final del archivo\n\n<VirtualHost *:80>\n    DocumentRoot \"C:/xampp/htdocs/mi-proyecto\"\n    ServerName mi-proyecto.test\n    <Directory \"C:/xampp/htdocs/mi-proyecto\">\n        Options Indexes FollowSymLinks\n        AllowOverride All\n        Require all granted\n    </Directory>\n</VirtualHost>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' En IIS/VB.NET se llama \"Sites\" en IIS Manager\n' O en IIS Express con applicationhost.config:\n'\n' <site name=\"MiProyecto\" id=\"2\">\n'   <bindings>\n'     <binding protocol=\"http\" bindingInformation=\":8080:localhost\" />\n'   </bindings>\n'   <application path=\"/\" applicationPool=\"MiProyecto\" />\n' </site>",
+    "php": "<?php\n// Una vez configurado el Virtual Host:\n// http://mi-proyecto.test/index.php\n// en lugar de:\n// http://localhost/mi-proyecto/index.php\n?>"
+  },
+  "test": [
+    {
+      "question": "Que son los Virtual Hosts?",
+      "options": [
+        "Servidores fisicos",
+        "Dominios virtuales en el mismo servidor",
+        "Bases de datos",
+        "Extensiones de PHP"
+      ],
+      "correct": 1,
+      "explanation": "Permiten tener múltiples sitios con diferentes dominios en un mismo servidor Apache."
+    },
+    {
+      "question": "Donde se define el Virtual Host en XAMPP?",
+      "options": [
+        "httpd.conf principal",
+        "httpd-vhosts.conf",
+        "php.ini",
+        "hosts de Windows"
+      ],
+      "correct": 1,
+      "explanation": "Se define en httpd-vhosts.conf dentro de conf/extra/."
+    }
+  ]
+}

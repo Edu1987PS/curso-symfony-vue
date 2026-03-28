@@ -1,0 +1,54 @@
+{
+  "id": 7,
+  "title": "Operadores en PHP",
+  "category": "php",
+  "module": 2,
+  "estimatedTime": "25 min",
+  "content": "<h2>Operadores aritmeticos</h2><p>Para operaciones matematicas basicas.</p><h2>Operadores de comparacion</h2><p>Para comparar valores. Ojo: <code>==</code> compara valor, <code>===</code> compara valor Y tipo.</p><h2>Operadores logicos</h2><p>Para combinar condiciones.</p>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Operadores PHP",
+      "code": "<?php\n// Aritmeticos\n$a = 10;\n$b = 3;\necho $a + $b;  // 13\necho $a - $b;  // 7\necho $a * $b;  // 30\necho $a / $b;  // 3.333\necho $a % $b;   // 1 (resto)\n\n// Comparacion\nvar_dump(5 == '5');   // true (valor igual)\nvar_dump(5 === '5');  // false (tipo diferente)\nvar_dump(5 !== '5');  // true\nvar_dump(5 > 3);      // true\nvar_dump(5 <= 5);     // true\n\n// Logicos\n$x = true;\n$y = false;\nvar_dump($x && $y);  // false\nvar_dump($x || $y);  // true\nvar_dump(!$y);       // true\n\n// Null coalescing (PHP 7+)\n$nombre = $_GET['nombre'] ?? 'Anonimo';\n\n// Spaceship (PHP 7+)\nvar_dump(5 <=> 10);  // -1\nvar_dump(10 <=> 10); // 0\nvar_dump(10 <=> 5);  // 1\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET usa operadores similares pero diferentes simbolos\n'\n' Aritmeticos: +, -, *, /, Mod\n' Comparacion: =, <>, <, >, <=, >=\n' Logicos: And, Or, Not, AndAlso, OrElse\n'\n' Dim a = 10 Mod 3  ' 1 (resto)\n'\n' VB.NET NO tiene === (usa GetType)\n' If valor.GetType = GetType(Integer) Then...",
+    "php": "<?php\n// Operador nave espacial (spaceship) es unico de PHP:\n// $a <=> $b\n// Devuelve -1, 0, o 1 segun $a sea menor, igual o mayor\n\n// Null coalescing??= (PHP 7+)\n$a = null;\n$a ??= 'default';  // $a = 'default'\n\n$a = 'valor';\n$a ??= 'default';  // $a sigue siendo 'valor'\n?>"
+  },
+  "test": [
+    {
+      "question": "Cual operador compara valor Y tipo?",
+      "options": [
+        "==",
+        "===",
+        "=",
+        "!="
+      ],
+      "correct": 1,
+      "explanation": "=== compara tanto el valor como el tipo (identidad)."
+    },
+    {
+      "question": "Que hace Mod en VB.NET / % en PHP?",
+      "options": [
+        "Division",
+        "Multiplicacion",
+        "Resto",
+        "Suma"
+      ],
+      "correct": 2,
+      "explanation": "Mod/% devuelve el resto de la division."
+    },
+    {
+      "question": "Que hace $a ??= 'default'?",
+      "options": [
+        "Asigna siempre",
+        "Asigna si es null",
+        "Compara",
+        "Suma"
+      ],
+      "correct": 1,
+      "explanation": "??= asigna solo si la variable es null (null coalescing assignment)."
+    }
+  ]
+}

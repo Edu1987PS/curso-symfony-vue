@@ -1,0 +1,54 @@
+{
+  "id": 6,
+  "title": "Variables y tipos de datos en PHP",
+  "category": "php",
+  "module": 2,
+  "estimatedTime": "30 min",
+  "content": "<h2>Variables en PHP</h2><p>Las variables en PHP empiezan con <code>$</code>. PHP es de tipado debil (lootype), lo que significa que no necesitas declarar el tipo.</p><h2>Tipos basicos</h2><ul><li><strong>string:</strong> Cadenas de texto</li><li><strong>int:</strong> Numeros enteros</li><li><strong>float:</strong> Numeros decimales</li><li><strong>bool:</strong> true/false</li><li><strong>array:</strong> Arreglos</li><li><strong>null:</strong> Valor nulo</li></ul>",
+  "codeExamples": [
+    {
+      "lang": "php",
+      "label": "Variables PHP",
+      "code": "<?php\n// Variables\n$nombre = 'Edu';\n$edad = 30;\n$altura = 1.75;\n$esMayor = true;\n$nulo = null;\n\n// Tipos\ngettype($nombre);  // 'string'\ngettype($edad);     // 'integer'\ngettype($altura);   // 'double'\ngettype($esMayor);  // 'boolean'\n\n// Conversion de tipos\n$numero = (int) '42';      // int 42\n$texto = (string) 123;      // string '123'\n$booleano = (bool) 1;      // true\n\n// Variables variables\n$var = 'hola';\n$$var = 'mundo';  // $hola = 'mundo'\necho $hola;  // 'mundo'\n?>"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET usa tipado fuerte\n' Dim nombre As String = \"Edu\"\n' Dim edad As Integer = 30\n' Dim altura As Double = 1.75\n' Dim esMayor As Boolean = True\n'\n' VB.NET NO permite:\n' Dim x = \"texto\"\n' x = 123  ' Error de tipo\n'\n' PHP permite:\n' $x = \"texto\";\n' $x = 123;  ' Funciona",
+    "php": "<?php\n// PHP es de tipado debil:\n$a = 'texto';\n$a = 123;  // Allowed in PHP\n\n// JavaScript es similar:\n// let a = 'texto';\n// a = 123;  // Allowed\n\n// Python es de tipado dinamico fuerte:\n// a = 'texto'\n// a = 123  # Tambien funciona\n?>"
+  },
+  "test": [
+    {
+      "question": "Como se declara una variable en PHP?",
+      "options": [
+        "var nombre",
+        "$nombre",
+        "let nombre",
+        "Dim nombre"
+      ],
+      "correct": 1,
+      "explanation": "Las variables en PHP empiezan con $."
+    },
+    {
+      "question": "PHP es de tipado...",
+      "options": [
+        "Estatico",
+        "Fuerte",
+        "Debil",
+        "Ninguno"
+      ],
+      "correct": 2,
+      "explanation": "PHP es de tipado debil: no necesita declarar tipos y convierte automaticamente."
+    },
+    {
+      "question": "Cual es el tipo de '42' entre comillas?",
+      "options": [
+        "integer",
+        "string",
+        "float",
+        "boolean"
+      ],
+      "correct": 1,
+      "explanation": "'42' es un string porque esta entre comillas."
+    }
+  ]
+}

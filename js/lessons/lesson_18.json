@@ -1,0 +1,39 @@
+{
+  "id": 18,
+  "title": "Vue 3 Introduction",
+  "category": "vue",
+  "module": 5,
+  "estimatedTime": "40 min",
+  "content": "<h2>Que es Vue.js?</h2><p>Vue.js es un framework JavaScript progresivo para construir interfaces de usuario.</p><h2>Vue 3 Composition API</h2><p>Usa funciones como ref() y computed().</p><h2>Reactividad</h2><p>Vue detecta automaticamente cambios en variables reactivas.</p>",
+  "codeExamples": [
+    {
+      "lang": "html",
+      "label": "Vue basico",
+      "code": "<div id=\"app\">\n    <h1>{{ titulo }}</h1>\n    <p>Contador: {{ contador }}</p>\n    <p>Doble: {{ doble }}</p>\n    <button @click=\"incrementar\">+1</button>\n</div>\n\n<script type=\"module\">\nimport { createApp, ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'\n\ncreateApp({\n    setup() {\n        const titulo = ref('Mi app Vue 3')\n        const contador = ref(0)\n        const doble = computed(() => contador.value * 2)\n        \n        function incrementar() {\n            contador.value++\n        }\n        \n        return { titulo, contador, doble, incrementar }\n    }\n}).mount('#app')\n</script>"
+    }
+  ],
+  "test": [
+    {
+      "question": "Que hace ref()?",
+      "options": [
+        "Crea elemento",
+        "Crea variable reactiva",
+        "Crea componente",
+        "Crea watcher"
+      ],
+      "correct": 1,
+      "explanation": "ref() crea una variable reactiva."
+    },
+    {
+      "question": "Como se accede al valor de una ref?",
+      "options": [
+        "$valor",
+        "valor.value",
+        "this.valor",
+        "@valor"
+      ],
+      "correct": 1,
+      "explanation": "En el script, se usa .value para acceder."
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "id": 5,
+  "title": "Configurar VS Code para PHP",
+  "category": "entorno",
+  "module": 1,
+  "estimatedTime": "20 min",
+  "content": "<h2>VS Code para PHP</h2><p>Visual Studio Code es el editor recomendado para PHP. Es gratuito, ligero y con extensiones tiene soporte completo.</p><h2>Extensiones esenciales</h2><ul><li><strong>PHP Intelephense:</strong> Autocompletado y analisis de codigo</li><li><strong>PHP Debug:</strong> Depuracion con Xdebug</li><li><strong>PHP Server:</strong> Servidor PHP integrado</li></ul><h2>Configuracion</h2>",
+  "codeExamples": [
+    {
+      "lang": "json",
+      "label": ".vscode/settings.json",
+      "code": "{\n  \"php.suggest.basic\": false,\n  \"php.validate.enable\": true,\n  \"php.validate.executablePath\": \"C:/xampp/php/php.exe\",\n  \"files.associations\": {\n    \"*.php\": \"php\"\n  }\n}"
+    }
+  ],
+  "comparison": {
+    "vbnet": "' VB.NET usa Visual Studio, no VS Code\n' Visual Studio tiene:\n' - IntelliSense integrado\n' - Depurador completo\n' - Designer para WinForms/WPF\n'\n' VS Code con extensiones emula algunas\n' funcionalidades de Visual Studio para PHP",
+    "php": "<?php\n// VS Code + PHP Intelephense proporciona:\n// - Autocompletado de funciones PHP\n// - Ir a definicion (F12)\n// - Find references\n// - Refactoring basico\n?>"
+  },
+  "test": [
+    {
+      "question": "Cual extension da autocompletado para PHP?",
+      "options": [
+        "Python extension",
+        "PHP Intelephense",
+        "JavaScript extension",
+        "C# extension"
+      ],
+      "correct": 1,
+      "explanation": "PHP Intelephense proporciona autocompletado avanzado para PHP."
+    },
+    {
+      "question": "Donde se configuran las asociaciones de archivos en VS Code?",
+      "options": [
+        "En package.json",
+        "En .vscode/settings.json",
+        "En launch.json",
+        "En tasks.json"
+      ],
+      "correct": 1,
+      "explanation": "Las configuraciones van en .vscode/settings.json."
+    }
+  ]
+}
